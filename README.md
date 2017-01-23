@@ -14,6 +14,10 @@ If all lives are lost, the game ends.
 - [ ] Score points for each hit
 - [ ] Display score at the end
 
+## Wireframe
+
+![wireframe](wireframe/clay_shooting.png)
+
 ## Implementation Timeline
 
 Day 1: Setup Canvas
