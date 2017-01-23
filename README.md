@@ -4,15 +4,15 @@
 
 Clay Shooting is a classic Nintendo game (part of Duck Hunt).
 Click to shoot the clay plates and score points with every hit.
+There are a limited number of lives and every time the player misses, they loose one.
+If all lives are lost, the game ends.
 
 ## Functionality & MVP
 
-[] Start button to begin the game
-[] Click to shoot the clay plates
-[] Score points for each hit
-[] Display score at the end
-
-## Wireframes
+- [ ] Start button to begin the game
+- [ ] Click to shoot the clay plates
+- [ ] Score points for each hit
+- [ ] Display score at the end
 
 ## Implementation Timeline
 
