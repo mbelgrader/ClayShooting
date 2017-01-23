@@ -38,7 +38,7 @@ Day 3: User interface
 Day 4: Additional Styling
   - Polish the canvas and controls
 
-Bonus Features:
+## Bonus Features:
   - On hover of plate, crosshairs get bigger
   - Rounds with increasing difficulty
   - Saved high scores (leaderboard)
