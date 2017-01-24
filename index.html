@@ -18,20 +18,20 @@
     var ctx = canvas.getContext("2d");
 
     // disc starting position
-    var discX = (canvas.width / 2) + 50
+    var discX = (canvas.width / 2) + 50;
     var discY = canvas.height - 30;
 
-    var disc2X = (canvas.width / 2) - 50
+    var disc2X = (canvas.width / 2) - 50;
     var disc2Y = canvas.height - 30;
 
-    var discRadius = 25;
-    var disc2Radius = 25;
+    var discRadius = 15;
+    var disc2Radius = 15;
     var dx = 1;
     var dy = -2;
-    var discColor = "white"
+    var discColor = "white";
 
-    var halfDiscL = discRadius / 2
-    var halfDiscH = discRadius / 2
+    var halfDiscL = discRadius / 2;
+    var halfDiscH = discRadius / 2;
 
     var discHit = false;
     var disc2Hit = false;
@@ -39,17 +39,41 @@
     var disc2Gone = false;
 
     var score = 0;
-    var lives = 3;
+    var shots = 3;
     var requestID = undefined;
 
     var paused = false;
     var gameOver = false;
     let startScene = true;
 
-    // draw disc
+    // function drawdisc(x, y, radius) {
+    //   ctx.beginPath();
+    //   ctx.arc(x, y, radius, 0, Math.PI*2);
+    //   ctx.fillStyle = discColor;
+    //   ctx.fill();
+    //   ctx.closePath();
+    // }
+
+    // function drawdisc(x, y, radius) {
+    //   ctx.beginPath();
+    //   ctx.arc(x, y, radius, 0, Math.PI*2);
+    //   ctx.fillStyle = discColor;
+    //   ctx.fill();
+    //   ctx.closePath();
+    // }
+
     function drawdisc(x, y, radius) {
+      ctx.save();
+
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+
+      ctx.scale(2, 1);
+
       ctx.beginPath();
-      ctx.arc(x, y, radius, 0, Math.PI*2);
+      ctx.arc(x - 200, y - 150, radius, 0, Math.PI*2);
+
+      ctx.restore();
+
       ctx.fillStyle = discColor;
       ctx.fill();
       ctx.closePath();
@@ -57,7 +81,7 @@
 
     function resetDisc() {
       discRadius = 25;
-      discX = (canvas.width / 2) + 50
+      discX = (canvas.width / 2) + 20
       discY = canvas.height - 30;
       discHit = false;
       discGone = false;
@@ -81,10 +105,10 @@
         resetDisc2();
       drawdisc(discX, discY, discRadius);
       drawdisc(disc2X, disc2Y, disc2Radius);
-      drawWon();
-      drawLives();
+      drawScore();
+      drawShots();
 
-      if (lives === 0) {
+      if (shots === 0) {
         gameOver = true;
         cancelAnimationFrame(requestID);
         drawGameOver();
@@ -122,7 +146,8 @@
         let mouseY = e.y;
 
         console.log(mouseX, mouseY);
-        // console.log(discX, discY);
+        console.log(discX, discY);
+        console.log(disc2X, disc2Y);
         // if coords within disc
         if (mouseX > (discX - discRadius) && mouseX < (discX + discRadius) &&
             mouseY < (discY + discRadius) && mouseY > (discY - discRadius)) {
@@ -133,7 +158,7 @@
           score++;
           disc2Hit = true;
         } else {
-          lives--;
+          shots--;
         }
       }
     }, true);
@@ -149,17 +174,17 @@
       }
     }
 
-   function drawWon() {
-     // 16px Arial
-     ctx.font = "12px Orbitron";
+   function drawScore() {
+     // 16px Orbitron
+     ctx.font = "13px Orbitron";
      ctx.fillStyle = "white";
-     ctx.fillText("SCORE: " + score, 305, 275);
+     ctx.fillText("SCORE: " + score, 302, 275);
    }
 
-   function drawLives() {
+   function drawShots() {
      ctx.font = "14px Orbitron";
      ctx.fillStyle = "white";
-     ctx.fillText(lives, 48, 270);
+     ctx.fillText(shots, 50, 270);
     ctx.font = "10px Orbitron";
      ctx.fillText("SHOTS", 35, 280);
    }
@@ -171,7 +196,7 @@
    }
 
    function gameSetup() {
-     lives = 3;
+     shots = 3;
      score = 0;
      discHit = false;
      disc2Hit = false;
@@ -179,17 +204,17 @@
 
     function drawStartScene() {
       drawdisc();
-      drawWon();
-      drawLives();
+      drawScore();
+      drawShots();
       drawStartButton();
     }
 
     function drawStartButton() {
       ctx.beginPath();
       ctx.rect(340, 10, 50, 25);
-      ctx.font = "24px Arial";
+      ctx.font = "24px Orbitron";
       ctx.fillStyle = "white";
-      ctx.fillText("Start", 180, 150);
+      ctx.fillText("Start", 165, 150);
       ctx.closePath();
     }
 
@@ -198,22 +223,14 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawPlayAgain();
       drawScore();
+      drawShots();
     }
 
     function drawPlayAgain() {
       ctx.beginPath();
-      ctx.font = "24px Arial";
+      ctx.font = "24px Orbitron";
       ctx.fillStyle = "white";
-      ctx.fillText("Play Again?", 180, 140);
-      ctx.closePath();
-    }
-
-    function drawScore() {
-      ctx.beginPath();
-      ctx.rect(340, 10, 50, 25);
-      ctx.font = "16px Arial";
-      ctx.fillStyle = "white";
-      ctx.fillText("Score: " + score, 210, 170);
+      ctx.fillText("Play Again?", 125, 140);
       ctx.closePath();
     }
 
