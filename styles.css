@@ -4,11 +4,11 @@ body {
 }
 
 #myCanvas {
-  /*background-color: #eee;*/
   background-image: url('./images/background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   display: block;
   margin: 0 auto;
   cursor: crosshair;
+  font-family: Orbitron;
 }
