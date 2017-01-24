@@ -23,16 +23,25 @@
     var disc2X = (canvas.width / 2) - 50
     var disc2Y = canvas.height - 30;
 
-    var discRadius = 10;
+    var discRadius = 20;
     var dx = 1;
     var dy = -2.5;
     var discColor = "white"
 
+    var halfDiscL = discRadius / 2
+    var halfDiscH = discRadius / 2
+
+    var discHit = false;
+    var disc2Hit = false;
+    var discGone = false;
+
     var score = 0;
-    var lives = 3;
+    var lives = 10;
     var requestID = undefined;
 
     var paused = false;
+    var gameOver = false;
+    let startScene = true;
 
     // draw disc
     function drawdisc(x, y) {
@@ -47,12 +56,15 @@
     // disc movement
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawdisc(discX, discY);
-      drawdisc(disc2X, disc2Y);
+      if (discHit === false && discGone === false)
+        drawdisc(discX, discY);
+      if (disc2Hit === false && discGone === false)
+        drawdisc(disc2X, disc2Y);
       drawWon();
       drawLives();
 
-      if (score == 20) {
+      if (lives === 0) {
+        gameOver = true;
         cancelAnimationFrame(requestID);
         drawGameOver();
         return
@@ -64,12 +76,40 @@
       disc2X -= dx
       disc2Y += dy
 
+      discRadius -= .1
+      if (discRadius <= .2)
+        discGone = true
+
       requestID = requestAnimationFrame(draw);
 
     }
 
     // controls
     document.addEventListener("keydown", spacebarHandler, false);
+    canvas.addEventListener("click", function(e) {
+      if (gameOver === true || startScene === true) {
+        startScene = false;
+        startGame();
+      } else {
+        let mouseX = e.clientX - canvas.offsetLeft
+        let mouseY = e.y;
+
+        console.log(mouseX, mouseY);
+        console.log(discX, discY);
+        // if coords within disc
+        if (mouseX > (discX - discRadius) && mouseX < (discX + discRadius) &&
+            mouseY < (discY + discRadius) && mouseY > (discY - discRadius)) {
+          score++;
+          discHit = true;
+        } else if (mouseX > (disc2X - discRadius) && mouseX < (disc2X + discRadius) &&
+            mouseY < (disc2Y + discRadius) && mouseY > (disc2Y - discRadius)) {
+          score++;
+          disc2Hit = true;
+        } else {
+          lives--;
+        }
+      }
+    }, true);
 
     function spacebarHandler(e) {
       if (e.keyCode == 32 && paused == false) {
@@ -85,13 +125,13 @@
 
    function drawWon() {
      ctx.font = "16px Arial";
-     ctx.fillStyle = "LightSeaGreen";
+     ctx.fillStyle = "white";
      ctx.fillText("Score: " + score, 8, 20);
    }
 
    function drawLives() {
      ctx.font = "16px Arial";
-     ctx.fillStyle = "LightSeaGreen";
+     ctx.fillStyle = "white";
      ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
    }
 
@@ -103,8 +143,10 @@
    }
 
    function gameSetup() {
-     lives = 3;
+     lives = 10;
      score = 0;
+     discHit = false;
+     disc2Hit = false;
    }
 
     // document.addEventListener("click", function() {
@@ -113,23 +155,24 @@
 
 
 
-    // function drawStartScene() {
-    //   drawdisc();
-    //   drawWon();
-    //   drawLives();
-    //   drawStartButton();
-    // }
+    function drawStartScene() {
+      drawdisc();
+      drawWon();
+      drawLives();
+      drawStartButton();
+    }
 
-    // function drawStartButton() {
-    //   ctx.beginPath();
-    //   ctx.rect(340, 10, 50, 25);
-    //   ctx.font = "24px Arial";
-    //   ctx.fillStyle = "LightSeaGreen";
-    //   ctx.fillText("Start", 214, 200);
-    //   ctx.closePath();
-    // }
+    function drawStartButton() {
+      ctx.beginPath();
+      ctx.rect(340, 10, 50, 25);
+      ctx.font = "24px Arial";
+      ctx.fillStyle = "white";
+      ctx.fillText("Start", 214, 150);
+      ctx.closePath();
+    }
 
     function drawGameOver() {
+      gameOver = true;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawPlayAgain();
       drawScore();
@@ -138,7 +181,7 @@
     function drawPlayAgain() {
         ctx.beginPath();
         ctx.font = "24px Arial";
-        ctx.fillStyle = "LightSeaGreen";
+        ctx.fillStyle = "white";
         ctx.fillText("Play Again?", 180, 140);
         ctx.closePath();
     }
@@ -147,13 +190,13 @@
       ctx.beginPath();
       ctx.rect(340, 10, 50, 25);
       ctx.font = "16px Arial";
-      ctx.fillStyle = "LightSeaGreen";
+      ctx.fillStyle = "white";
       ctx.fillText("Score: " + score, 210, 170);
       ctx.closePath();
     }
 
   //  drawStartScene();
-  startGame();
+    drawStartScene();
   </script>
 </body>
 </html>

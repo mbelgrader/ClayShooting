@@ -1,6 +1,6 @@
 body {
   padding: 0;
-  margin: 0; 
+  margin: 0;
 }
 
 #myCanvas {
@@ -9,4 +9,5 @@ body {
   background-size: cover;
   display: block;
   margin: 0 auto;
+  cursor: crosshair;
 }
