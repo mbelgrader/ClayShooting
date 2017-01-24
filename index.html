@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <canvas id="myCanvas" width="480" height="320">
+  <canvas id="myCanvas" width="480" height="325">
     <!-- render -->
   </canvas>
 
@@ -23,9 +23,10 @@
     var disc2X = (canvas.width / 2) - 50
     var disc2Y = canvas.height - 30;
 
-    var discRadius = 20;
+    var discRadius = 25;
+    var disc2Radius = 25;
     var dx = 1;
-    var dy = -2.5;
+    var dy = -2;
     var discColor = "white"
 
     var halfDiscL = discRadius / 2
@@ -34,6 +35,7 @@
     var discHit = false;
     var disc2Hit = false;
     var discGone = false;
+    var disc2Gone = false;
 
     var score = 0;
     var lives = 10;
@@ -44,22 +46,40 @@
     let startScene = true;
 
     // draw disc
-    function drawdisc(x, y) {
+    function drawdisc(x, y, radius) {
       ctx.beginPath();
-      ctx.arc(x, y, discRadius, 0, Math.PI*2);
+      ctx.arc(x, y, radius, 0, Math.PI*2);
       ctx.fillStyle = discColor;
       ctx.fill();
       ctx.closePath();
+    }
+
+    function resetDisc() {
+      discRadius = 25;
+      discX = (canvas.width / 2) + 50
+      discY = canvas.height - 30;
+      discHit = false;
+      discGone = false;
+    }
+
+    function resetDisc2() {
+      disc2Radius = 25;
+      disc2X = (canvas.width / 2) - 50
+      disc2Y = canvas.height - 30;
+      disc2Hit = false;
+      disc2Gone = false;
     }
 
 
     // disc movement
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (discHit === false && discGone === false)
-        drawdisc(discX, discY);
-      if (disc2Hit === false && discGone === false)
-        drawdisc(disc2X, disc2Y);
+      if (discHit || discGone)
+        resetDisc();
+      if (disc2Hit || disc2Gone)
+        resetDisc2();
+      drawdisc(discX, discY, discRadius);
+      drawdisc(disc2X, disc2Y, disc2Radius);
       drawWon();
       drawLives();
 
@@ -76,9 +96,13 @@
       disc2X -= dx
       disc2Y += dy
 
-      discRadius -= .1
+      discRadius -= .18
       if (discRadius <= .2)
         discGone = true
+
+      disc2Radius -= .18
+      if (disc2Radius <= .2)
+        disc2Gone = true
 
       requestID = requestAnimationFrame(draw);
 
@@ -87,7 +111,9 @@
     // controls
     document.addEventListener("keydown", spacebarHandler, false);
     canvas.addEventListener("click", function(e) {
-      if (gameOver === true || startScene === true) {
+
+      if (startScene === true || gameOver === true) {
+        gameOver = false;
         startScene = false;
         startGame();
       } else {
@@ -101,8 +127,8 @@
             mouseY < (discY + discRadius) && mouseY > (discY - discRadius)) {
           score++;
           discHit = true;
-        } else if (mouseX > (disc2X - discRadius) && mouseX < (disc2X + discRadius) &&
-            mouseY < (disc2Y + discRadius) && mouseY > (disc2Y - discRadius)) {
+        } else if (mouseX > (disc2X - disc2Radius) && mouseX < (disc2X + disc2Radius) &&
+            mouseY < (disc2Y + disc2Radius) && mouseY > (disc2Y - disc2Radius)) {
           score++;
           disc2Hit = true;
         } else {
@@ -126,13 +152,13 @@
    function drawWon() {
      ctx.font = "16px Arial";
      ctx.fillStyle = "white";
-     ctx.fillText("Score: " + score, 8, 20);
+     ctx.fillText("Score: " + score, 8, 25);
    }
 
    function drawLives() {
      ctx.font = "16px Arial";
      ctx.fillStyle = "white";
-     ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
+     ctx.fillText("Lives: " + lives, canvas.width - 65, 25);
    }
 
 
