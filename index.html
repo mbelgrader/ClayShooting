@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <link type="text/javascript" src="script.js"/>
-    <title>Breakout</title>
+    <title>Clay Shooting</title>
     <style>
     	* { padding: 0; margin: 0; }
     	canvas { background: #eee; display: block; margin: 0 auto; }
@@ -16,8 +16,139 @@
   </canvas>
 
   <script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
 
+    // disc starting position
+    var x = canvas.width/2
+    var y = canvas.height-30;
+
+    var discRadius = 10;
+    var dx = 3.5;
+    var dy = -3.5;
+    var discColor = "LightSeaGreen"
+
+    var score = 0;
+    var lives = 3;
+    var requestID = undefined;
+
+    var paused = false;
+
+    // draw disc
+    function drawdisc(color) {
+      ctx.beginPath();
+      ctx.arc(x, y, discRadius, 0, Math.PI*2);
+      ctx.fillStyle = discColor;
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    // disc movement
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawdisc();
+      drawWon();
+      drawLives();
+
+      if (score == 20) {
+        cancelAnimationFrame(requestID);
+        drawGameOver();
+        return
+      }
+
+      x += dx
+      y += dy
+
+      requestID = requestAnimationFrame(draw);
+
+    }
+
+    // controls
+    document.addEventListener("keydown", spacebarHandler, false);
+
+    function spacebarHandler(e) {
+      if (e.keyCode == 32 && paused == false) {
+        paused = true;
+        cancelAnimationFrame(requestID);
+      }
+      else if (e.keyCode == 32 && paused == true) {
+        paused = false;
+        requestAnimationFrame(draw);
+      }
+    }
+
+
+   function drawWon() {
+     ctx.font = "16px Arial";
+     ctx.fillStyle = "LightSeaGreen";
+     ctx.fillText("Score: " + score, 8, 20);
+   }
+
+   function drawLives() {
+     ctx.font = "16px Arial";
+     ctx.fillStyle = "LightSeaGreen";
+     ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
+   }
+
+
+   function startGame() {
+     cancelAnimationFrame(requestID);
+     gameSetup();
+     draw();
+   }
+
+   function gameSetup() {
+     lives = 3;
+     score = 0;
+   }
+
+    // document.addEventListener("click", function() {
+    //   startGame();
+    // }, true);
+
+
+
+    // function drawStartScene() {
+    //   drawdisc();
+    //   drawWon();
+    //   drawLives();
+    //   drawStartButton();
+    // }
+
+    // function drawStartButton() {
+    //   ctx.beginPath();
+    //   ctx.rect(340, 10, 50, 25);
+    //   ctx.font = "24px Arial";
+    //   ctx.fillStyle = "LightSeaGreen";
+    //   ctx.fillText("Start", 214, 200);
+    //   ctx.closePath();
+    // }
+
+    function drawGameOver() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawPlayAgain();
+      drawScore();
+    }
+
+    function drawPlayAgain() {
+        ctx.beginPath();
+        ctx.font = "24px Arial";
+        ctx.fillStyle = "LightSeaGreen";
+        ctx.fillText("Play Again?", 180, 140);
+        ctx.closePath();
+    }
+
+    function drawScore() {
+      ctx.beginPath();
+      ctx.rect(340, 10, 50, 25);
+      ctx.font = "16px Arial";
+      ctx.fillStyle = "LightSeaGreen";
+      ctx.fillText("Score: " + score, 210, 170);
+      ctx.closePath();
+    }
+
+  //  drawStartScene();
+  startGame();
   </script>
-
 </body>
 </html>
