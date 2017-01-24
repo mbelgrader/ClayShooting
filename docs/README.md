@@ -20,22 +20,22 @@ If all lives are lost, the game ends.
 
 ## Implementation Timeline
 
-Day 1: Setup Canvas
+**Day 1**: Setup Canvas
   - Draw Background
   - Draw clay plates
 
-Day 2: Implement game logic
+**Day 2**: Implement game logic
   - Plate movement
   - Plate gets smaller to simulate distance
   - Scoring
 
-Day 3: User interface
+**Day 3**: User interface
   - Add start screen with a button to begin
   - Add end screen displaying the score
   - User controls
   - Style the page
 
-Day 4: Additional Styling
+**Day 4**: Additional Styling
   - Polish the canvas and controls
 
 ## Bonus Features:
