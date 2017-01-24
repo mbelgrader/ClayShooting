@@ -104,7 +104,7 @@
       if (disc2Hit || disc2Gone)
         resetDisc2();
       drawdisc(discX, discY, discRadius);
-      drawdisc(disc2X, disc2Y, disc2Radius);
+      setTimeout(drawdisc(disc2X, disc2Y, disc2Radius), 20000);
       drawScore();
       drawShots();
 
@@ -118,7 +118,7 @@
       discX += dx
       discY += dy
 
-      disc2X -= dx
+      disc2X += dx
       disc2Y += dy
 
       discRadius -= .18
@@ -149,7 +149,7 @@
         console.log(discX, discY);
         console.log(disc2X, disc2Y);
         // if coords within disc
-        if (mouseX > (discX - discRadius) && mouseX < (discX + discRadius) &&
+        if (mouseX > (discX - discRadius*2) && mouseX < (discX + discRadius*2) &&
             mouseY < (discY + discRadius) && mouseY > (discY - discRadius)) {
           score++;
           discHit = true;
