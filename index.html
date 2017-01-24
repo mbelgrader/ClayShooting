@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <canvas id="myCanvas" width="400" height="300">
+  <canvas id="myCanvas" width="480" height="360">
     <!-- render -->
   </canvas>
 
@@ -27,7 +27,7 @@
     var discRadius = 15;
     var disc2Radius = 15;
     var dx = 2;
-    var dy = -1;
+    var dy = -1.5;
     var discColor = "white";
 
     // var halfDiscL = discRadius / 2;
@@ -68,7 +68,7 @@
       ctx.scale(2, 1);
 
       ctx.beginPath();
-      ctx.arc(x - 300, y - 200, radius, 0, Math.PI*2);
+      ctx.arc(x - 300, y - 250, radius, 0, Math.PI*2);
       ctx.restore();
 
       ctx.fillStyle = discColor;
@@ -150,7 +150,7 @@
             mouseY < (discY + discRadius*3) && mouseY > (discY - discRadius*3)) {
           score++;
           discHit = true;
-        } else if (mouseX + 100 > (disc2X - disc2Radius*3) && mouseX + 100 < (disc2X + disc2Radius*3) &&
+        } else if (mouseX + 50 > (disc2X - disc2Radius*3) && mouseX + 50 < (disc2X + disc2Radius*3) &&
             mouseY < (disc2Y + disc2Radius*3) && mouseY > (disc2Y - disc2Radius*3)) {
           score++;
           disc2Hit = true;
@@ -173,17 +173,17 @@
 
    function drawScore() {
      // 16px Orbitron
-     ctx.font = "13px Orbitron";
+     ctx.font = "14px Orbitron";
      ctx.fillStyle = "white";
-     ctx.fillText("SCORE: " + score, 302, 275);
+     ctx.fillText("SCORE: " + score, 365, 329);
    }
 
    function drawShots() {
-     ctx.font = "14px Orbitron";
+     ctx.font = "16px Orbitron";
      ctx.fillStyle = "white";
-     ctx.fillText(shots, 50, 270);
-    ctx.font = "10px Orbitron";
-     ctx.fillText("SHOTS", 35, 280);
+     ctx.fillText(shots, 58, 322);
+    ctx.font = "11px Orbitron";
+     ctx.fillText("SHOTS", 44, 333);
    }
 
    function startGame() {
@@ -209,9 +209,9 @@
     function drawStartButton() {
       ctx.beginPath();
       ctx.rect(340, 10, 50, 25);
-      ctx.font = "24px Orbitron";
+      ctx.font = "28px Orbitron";
       ctx.fillStyle = "white";
-      ctx.fillText("Start", 165, 150);
+      ctx.fillText("START", 190, 150);
       ctx.closePath();
     }
 
