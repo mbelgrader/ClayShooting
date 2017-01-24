@@ -20,12 +20,15 @@
     var ctx = canvas.getContext("2d");
 
     // disc starting position
-    var x = canvas.width/2
-    var y = canvas.height-30;
+    var discX = (canvas.width / 2) + 50
+    var discY = canvas.height - 30;
+
+    var disc2X = (canvas.width / 2) - 50
+    var disc2Y = canvas.height - 30;
 
     var discRadius = 10;
-    var dx = 3.5;
-    var dy = -3.5;
+    var dx = 1;
+    var dy = -2.5;
     var discColor = "LightSeaGreen"
 
     var score = 0;
@@ -35,7 +38,7 @@
     var paused = false;
 
     // draw disc
-    function drawdisc(color) {
+    function drawdisc(x, y) {
       ctx.beginPath();
       ctx.arc(x, y, discRadius, 0, Math.PI*2);
       ctx.fillStyle = discColor;
@@ -43,10 +46,12 @@
       ctx.closePath();
     }
 
+
     // disc movement
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawdisc();
+      drawdisc(discX, discY);
+      drawdisc(disc2X, disc2Y);
       drawWon();
       drawLives();
 
@@ -56,8 +61,11 @@
         return
       }
 
-      x += dx
-      y += dy
+      discX += dx
+      discY += dy
+
+      disc2X -= dx
+      disc2Y += dy
 
       requestID = requestAnimationFrame(draw);
 
