@@ -26,12 +26,12 @@
 
     var discRadius = 15;
     var disc2Radius = 15;
-    var dx = 1;
-    var dy = -2;
+    var dx = 2;
+    var dy = -1;
     var discColor = "white";
 
-    var halfDiscL = discRadius / 2;
-    var halfDiscH = discRadius / 2;
+    // var halfDiscL = discRadius / 2;
+    // var halfDiscH = discRadius / 2;
 
     var discHit = false;
     var disc2Hit = false;
@@ -64,14 +64,11 @@
 
     function drawdisc(x, y, radius) {
       ctx.save();
-
       ctx.translate(canvas.width / 2, canvas.height / 2);
-
       ctx.scale(2, 1);
 
       ctx.beginPath();
-      ctx.arc(x - 200, y - 150, radius, 0, Math.PI*2);
-
+      ctx.arc(x - 300, y - 200, radius, 0, Math.PI*2);
       ctx.restore();
 
       ctx.fillStyle = discColor;
@@ -80,15 +77,15 @@
     }
 
     function resetDisc() {
-      discRadius = 25;
-      discX = (canvas.width / 2) + 20
+      discRadius = 15;
+      discX = (canvas.width / 2) + 50
       discY = canvas.height - 30;
       discHit = false;
       discGone = false;
     }
 
     function resetDisc2() {
-      disc2Radius = 25;
+      disc2Radius = 15;
       disc2X = (canvas.width / 2) - 50
       disc2Y = canvas.height - 30;
       disc2Hit = false;
@@ -121,11 +118,11 @@
       disc2X += dx
       disc2Y += dy
 
-      discRadius -= .18
+      discRadius -= .1
       if (discRadius <= .2)
         discGone = true
 
-      disc2Radius -= .18
+      disc2Radius -= .1
       if (disc2Radius <= .2)
         disc2Gone = true
 
@@ -142,19 +139,19 @@
         startScene = false;
         startGame();
       } else {
-        let mouseX = e.clientX - canvas.offsetLeft
-        let mouseY = e.y;
+        let mouseX = e.clientX - canvas.offsetLeft + 50;
+        let mouseY = e.y + 50;
 
         console.log(mouseX, mouseY);
         console.log(discX, discY);
         console.log(disc2X, disc2Y);
         // if coords within disc
-        if (mouseX > (discX - discRadius*2) && mouseX < (discX + discRadius*2) &&
-            mouseY < (discY + discRadius) && mouseY > (discY - discRadius)) {
+        if (mouseX > (discX - discRadius*3) && mouseX < (discX + discRadius*3) &&
+            mouseY < (discY + discRadius*3) && mouseY > (discY - discRadius*3)) {
           score++;
           discHit = true;
-        } else if (mouseX > (disc2X - disc2Radius) && mouseX < (disc2X + disc2Radius) &&
-            mouseY < (disc2Y + disc2Radius) && mouseY > (disc2Y - disc2Radius)) {
+        } else if (mouseX + 100 > (disc2X - disc2Radius*3) && mouseX + 100 < (disc2X + disc2Radius*3) &&
+            mouseY < (disc2Y + disc2Radius*3) && mouseY > (disc2Y - disc2Radius*3)) {
           score++;
           disc2Hit = true;
         } else {
