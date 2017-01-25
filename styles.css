@@ -10,6 +10,7 @@ body {
   display: block;
   margin: 0 auto;
   cursor: crosshair;
+  margin-top: 20px;
 }
 
 .instructions {
