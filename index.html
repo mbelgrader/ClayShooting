@@ -125,12 +125,12 @@
         let mouseX = e.clientX - canvas.offsetLeft + 50;
         let mouseY = e.y + 50;
 
-        if (mouseX > (discX - discRadius*3) && mouseX < (discX + discRadius*3) &&
-            mouseY < (discY + discRadius*3) && mouseY > (discY - discRadius*3)) {
+        if (mouseX - 100 > (discX - discRadius*4) && mouseX - 100 < (discX + discRadius*4) &&
+            mouseY < (discY + discRadius*4) && mouseY > (discY - discRadius*4)) {
           score++;
           discHit = true;
-        } else if (mouseX + 50 > (disc2X - disc2Radius*3) && mouseX + 50 < (disc2X + disc2Radius*3) &&
-            mouseY < (disc2Y + disc2Radius*3) && mouseY > (disc2Y - disc2Radius*3)) {
+        } else if (mouseX > (disc2X - disc2Radius*4) && mouseX < (disc2X + disc2Radius*4) &&
+            mouseY < (disc2Y + disc2Radius*4) && mouseY > (disc2Y - disc2Radius*4)) {
           score++;
           disc2Hit = true;
         } else {
