@@ -1,6 +1,7 @@
 body {
   padding: 0;
   margin: 0;
+  background-color: #dce1e7 ;
 }
 
 #myCanvas {
@@ -11,6 +12,11 @@ body {
   margin: 0 auto;
   cursor: crosshair;
   margin-top: 20px;
+  border: 15px solid #7e736f;
+  border-right: 30px solid #7e736f;
+  border-left: 30px solid #7e736f;
+  border-radius: 5px;
+  border-bottom-right-radius: 20px;
 }
 
 .instructions {
