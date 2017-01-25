@@ -2,26 +2,27 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Orbitron:700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:700" rel="stylesheet">
     <title>Clay Shooting</title>
-    <script>
-      WebFont.load({
-        google: {
-          families: ['Orbitron']
-        }
-      });
-    </script>
 </head>
-<body>
 
+<body onload="drawStartScene();">
   <canvas id="myCanvas" width="480" height="360">
     <!-- render -->
   </canvas>
 
-  <script>
+  <div class='instructions'>
+    <h2>Instructions:</h2>
+    <!-- <p>Click to Start the Game.</p>
+    <p>Aim and click the clay plates to shoot as many as you can</p>
+    <p>Shots are your lives. If you shoot and miss, you will loose a shot.
+        Loose all 3 shots and it's game over.<p> -->
+    <p>Click to shoot the plates </p>
+    <p>Spacebar: pause game</p>
+  </div>
 
+  <script>
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
 
@@ -38,9 +39,6 @@
     var dy = -1.5;
     var discColor = "white";
 
-    // var halfDiscL = discRadius / 2;
-    // var halfDiscH = discRadius / 2;
-
     var discHit = false;
     var disc2Hit = false;
     var discGone = false;
@@ -53,22 +51,6 @@
     var paused = false;
     var gameOver = false;
     let startScene = true;
-
-    // function drawdisc(x, y, radius) {
-    //   ctx.beginPath();
-    //   ctx.arc(x, y, radius, 0, Math.PI*2);
-    //   ctx.fillStyle = discColor;
-    //   ctx.fill();
-    //   ctx.closePath();
-    // }
-
-    // function drawdisc(x, y, radius) {
-    //   ctx.beginPath();
-    //   ctx.arc(x, y, radius, 0, Math.PI*2);
-    //   ctx.fillStyle = discColor;
-    //   ctx.fill();
-    //   ctx.closePath();
-    // }
 
     function drawdisc(x, y, radius) {
       ctx.save();
@@ -100,8 +82,6 @@
       disc2Gone = false;
     }
 
-
-    // disc movement
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       if (discHit || discGone)
@@ -138,7 +118,6 @@
 
     }
 
-    // controls
     document.addEventListener("keydown", spacebarHandler, false);
     canvas.addEventListener("click", function(e) {
 
@@ -150,10 +129,6 @@
         let mouseX = e.clientX - canvas.offsetLeft + 50;
         let mouseY = e.y + 50;
 
-        console.log(mouseX, mouseY);
-        console.log(discX, discY);
-        console.log(disc2X, disc2Y);
-        // if coords within disc
         if (mouseX > (discX - discRadius*3) && mouseX < (discX + discRadius*3) &&
             mouseY < (discY + discRadius*3) && mouseY > (discY - discRadius*3)) {
           score++;
@@ -180,7 +155,6 @@
     }
 
    function drawScore() {
-     // 16px Orbitron
      ctx.font = "14px Orbitron";
      ctx.fillStyle = "white";
      ctx.fillText("SCORE: " + score, 365, 329);
@@ -240,9 +214,7 @@
       ctx.fillText("Play Again?", 155, 140);
       ctx.closePath();
     }
-
-  //  drawStartScene();
-    drawStartScene();
   </script>
+
 </body>
 </html>

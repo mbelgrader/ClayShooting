@@ -10,5 +10,9 @@ body {
   display: block;
   margin: 0 auto;
   cursor: crosshair;
-  font-family: Orbitron;
+}
+
+.instructions {
+  text-align: center;
+  font-family: "Orbitron", sans-serif;
 }
