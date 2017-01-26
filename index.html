@@ -89,7 +89,7 @@
       drawScore();
       drawShots();
 
-      if (shots === 0) {
+      if (shots <= 0) {
         gameOver = true;
         cancelAnimationFrame(requestID);
         drawGameOver();
@@ -122,19 +122,21 @@
         startScene = false;
         startGame();
       } else {
-        let mouseX = e.clientX - canvas.offsetLeft + 50;
-        let mouseY = e.y + 50;
+        if (paused === false) {
+          let mouseX = e.clientX - canvas.offsetLeft + 50;
+          let mouseY = e.y + 50;
 
-        if (mouseX - 100 > (discX - discRadius*4) && mouseX - 100 < (discX + discRadius*4) &&
-            mouseY < (discY + discRadius*4) && mouseY > (discY - discRadius*4)) {
-          score++;
-          discHit = true;
-        } else if (mouseX > (disc2X - disc2Radius*4) && mouseX < (disc2X + disc2Radius*4) &&
-            mouseY < (disc2Y + disc2Radius*4) && mouseY > (disc2Y - disc2Radius*4)) {
-          score++;
-          disc2Hit = true;
-        } else {
-          shots--;
+          if (mouseX - 100 > (discX - discRadius*4) && mouseX - 100 < (discX + discRadius*4) &&
+              mouseY < (discY + discRadius*4) && mouseY > (discY - discRadius*4)) {
+            score++;
+            discHit = true;
+          } else if (mouseX > (disc2X - disc2Radius*4) && mouseX < (disc2X + disc2Radius*4) &&
+              mouseY < (disc2Y + disc2Radius*4) && mouseY > (disc2Y - disc2Radius*4)) {
+            score++;
+            disc2Hit = true;
+          } else {
+            shots--;
+          }
         }
       }
     }, true);
