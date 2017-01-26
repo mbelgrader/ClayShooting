@@ -12,7 +12,7 @@ If you use all 3 shots, the game ends.
 ## Instructions
 
 - Click to shoot the plates
-- Spacebar: pause game
+- Spacebar: pause
 
 ## Functionality
 
