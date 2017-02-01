@@ -126,8 +126,6 @@
           let mouseX = e.clientX - canvas.offsetLeft + 50;
           let mouseY = e.clientY + 50;
 
-          console.log(mouseX, mouseY);
-          console.log(e);
           if (mouseX - 100 > (discX - discRadius*4) && mouseX - 100 < (discX + discRadius*4) &&
               mouseY < (discY + discRadius*4) && mouseY > (discY - discRadius*4)) {
             score++;
