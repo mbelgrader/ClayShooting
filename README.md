@@ -1,5 +1,7 @@
 # ClayShooting
 
+[Live Demo](https://mbelgrader.github.io/)
+
 ## Background
 
 Clay Shooting is a classic Nintendo game (part of Duck Hunt).
