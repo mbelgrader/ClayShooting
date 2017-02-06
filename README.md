@@ -1,6 +1,6 @@
 # ClayShooting
 
-[Live Demo](https://mbelgrader.github.io/)
+[Live Demo](https://mbelgrader.github.io/ClayShooting/)
 
 ## Background
 
